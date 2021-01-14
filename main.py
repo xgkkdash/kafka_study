@@ -15,7 +15,7 @@ order_out = app.topic('order_out', value_type=Order)
 
 # init db
 def get_db():
-    db_name = os.environ.get('DB_NAME', 'faust_study_dev')
+    db_name = os.environ.get('DB_NAME', 'order_svc_dev')
     db_host = os.environ.get('DB_HOST', 'localhost')
     db_port = os.environ.get('DB_PORT', '27017')
     db_url = "mongodb://" + db_host + ":" + str(db_port) + "/"

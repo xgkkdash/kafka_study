@@ -1,0 +1,32 @@
+version: '2'
+services:
+    zookeeper:
+        image: wurstmeister/zookeeper
+        ports:
+            - 2181:2181
+    kafka:
+        image: wurstmeister/kafka
+        environment:
+            KAFKA_ZOOKEEPER_CONNECT: zookeeper:2181
+        ports:
+            - 9092:9092
+        volumes:
+            - /var/run/docker.sock:/var/run/docker.sock
+    mongodb:
+        image: "mongo"
+        container_name: "mongodb"
+        volumes:
+            - ./mongodb:/data/db
+        ports:
+            - 27016:27016
+        command: mongod --port 27016
+    order_svc:
+        build: .
+        environment:
+            - DB_NAME=order_svc_prod
+            - DB_HOST=mongodb
+            - DB_PORT=27016
+        container_name: "order_svc"
+        depends_on:
+            - mongodb
+        command: faust -A main worker -l info
