@@ -1,1 +1,4 @@
 faust
+pytest
+asyncio
+pytest-asyncio
