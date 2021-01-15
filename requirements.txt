@@ -3,3 +3,4 @@ pytest
 asyncio
 pytest-asyncio
 motor
+mode
