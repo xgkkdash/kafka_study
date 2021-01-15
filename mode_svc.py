@@ -10,31 +10,31 @@ class OrderService(Service):
     order_out = pubsub.topic('order_out', value_type=Order)
 
     def __post_init__(self) -> None:
-        """Additional user initialization."""
+        # add dependency
         self.add_dependency(self.pubsub)
 
     async def on_first_start(self) -> None:
-        """Service started for the first time in this process."""
+        # svc begin to start first time in a process
         self.log.info(self.label + ' first starting')
 
     async def on_start(self) -> None:
-        """Service is starting."""
+        # svc begin to start
         self.log.info(self.label + ' starting')
 
     async def on_started(self) -> None:
-        """Service has started."""
+        # svc started
         self.log.info(self.label + ' started')
 
     async def on_stop(self) -> None:
-        """Service is being stopped/restarted."""
+        # svc begin to stop
         self.log.info(self.label + ' stopping')
 
     async def on_shutdown(self) -> None:
-        """Service is stopped and shutdown."""
+        # svc stopped
         self.log.info(self.label + ' shutdown')
 
     async def on_restart(self) -> None:
-        """Service is being restarted."""
+        # svc begin to restart
         self.log.info(self.label + ' restarting')
 
     @pubsub.agent(order_in)
